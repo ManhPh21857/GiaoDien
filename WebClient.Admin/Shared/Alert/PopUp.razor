@@ -1,0 +1,48 @@
+﻿@namespace WebClient.Admin.Shared.Alert
+@inject SweetAlertService Swal
+
+@code {
+
+  public async Task Error(string? title, string? text)
+  {
+    var result = await Swal.FireAsync(new SweetAlertOptions
+    {
+      Icon = "error",
+      Title = title,
+      Text = text
+    });
+  }
+
+  public async Task Success()
+  {
+    await Swal.FireAsync(new SweetAlertOptions
+    {
+      Position = "top-end",
+      Icon = "success",
+      Title = "Update Success",
+      ShowConfirmButton = false,
+      Timer = 500,
+      Backdrop = false,
+    });
+  }
+
+  public async Task Confirm(string? title, string? text, Action action)
+  {
+    var confirm = await Swal.FireAsync(new SweetAlertOptions
+    {
+      Title = title,
+      Text = text,
+      Icon = "warning",
+      ShowCancelButton = true,
+      ConfirmButtonColor = "#3085d6",
+      CancelButtonColor = "#d33",
+      ConfirmButtonText = "Yes"
+    });
+
+    if (confirm.IsConfirmed)
+    {
+      action();
+    }
+  }
+
+}

@@ -1,0 +1,55 @@
+﻿@namespace WebClient.Shop.Shared.Shop
+
+@inherits LayoutComponentBase
+
+<body class="ecommerce">
+    <!-- BEGIN STYLE CUSTOMIZER -->
+    <div class="color-panel hidden-sm">
+        <div class="color-mode-icons icon-color"></div>
+        <div class="color-mode-icons icon-color-close"></div>
+        <div class="color-mode">
+            <p>THEME COLOR</p>
+            <ul class="inline">
+                <li class="color-red current color-default" data-style="red"></li>
+                <li class="color-blue" data-style="blue"></li>
+                <li class="color-green" data-style="green"></li>
+                <li class="color-orange" data-style="orange"></li>
+                <li class="color-gray" data-style="gray"></li>
+                <li class="color-turquoise" data-style="turquoise"></li>
+            </ul>
+        </div>
+    </div>
+    <!-- END BEGIN STYLE CUSTOMIZER -->
+    <!-- BEGIN TOP BAR -->
+    <div class="pre-header">
+        <PreHeader></PreHeader>
+    </div>
+    <!-- END TOP BAR -->
+    <!-- BEGIN HEADER -->
+    <div class="header">
+        <Header></Header>
+    </div>
+
+    @Body
+
+    <!-- BEGIN BRANDS -->
+    <div class="brands">
+        <Brands></Brands>
+    </div>
+    <!-- END BRANDS -->
+    <!-- BEGIN STEPS -->
+    <div class="steps-block steps-block-red">
+        <Steps></Steps>
+    </div>
+    <!-- END STEPS -->
+    <!-- BEGIN PRE-FOOTER -->
+    <div class="pre-footer">
+        <PreFooter></PreFooter>
+    </div>
+    <!-- END PRE-FOOTER -->
+    <!-- BEGIN FOOTER -->
+    <div class="footer">
+        <Footer></Footer>
+    </div>
+    <!-- END FOOTER -->
+</body>

@@ -1,0 +1,42 @@
+﻿@layout LoginLayout
+@page "/forgot"
+
+<div class="limiter">
+  <div class="container-login100">
+    <div class="wrap-login100">
+      <div class="login100-pic js-tilt" data-tilt>
+        <img alt="IMG" src="images/fg-img.png">
+      </div>
+      <form class="login100-form validate-form">
+        <span class="login100-form-title">
+          <b>KHÔI PHỤC MẬT KHẨU</b>
+        </span>
+        <form action="custommer.html">
+          <div class="wrap-input100 validate-input"
+            data-validate="Bạn cần nhập đúng thông tin như: ex@abc.xyz">
+            <input class="input100" id="emailInput" name="emailInput" placeholder="Nhập email"
+              type="text" value="" />
+            <span class="focus-input100"></span>
+            <span class="symbol-input100">
+              <i class='bx bx-mail-send'></i>
+            </span>
+          </div>
+          <div class="container-login100-form-btn">
+            <input onclick="return RegexEmail('emailInput')" type="button" value="Lấy mật khẩu" />
+          </div>
+
+          <div class="text-center p-t-12">
+            <a class="txt2" href="login">
+              Trở về đăng nhập
+            </a>
+          </div>
+        </form>
+        <div class="text-center p-t-70 txt2">
+          Phần mềm quản lý bán hàng
+          <i aria-hidden="true" class="far fa-copyright"></i>
+          <a class="txt2" href="https://www.facebook.com/truongvo.vd1503/"> Code bởi Trường </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

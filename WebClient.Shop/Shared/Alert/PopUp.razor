@@ -1,0 +1,30 @@
+﻿@namespace WebClient.Shop.Shared.Alert
+
+@inject SweetAlertService Swal
+
+@code {
+
+  public async Task Error(string title, string text)
+  {
+    await Swal.FireAsync(new SweetAlertOptions
+    {
+      Icon = "error",
+      Title = title,
+      Text = text,
+    });
+  }
+
+  public async Task Success()
+  {
+    await Swal.FireAsync(new SweetAlertOptions
+    {
+      Position = "top-end",
+      Icon = "success",
+      Title = "Update Success",
+      ShowConfirmButton = false,
+      Timer = 500,
+      Backdrop = false,
+            
+    });
+  }
+}

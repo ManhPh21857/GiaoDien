@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Blazored.LocalStorage" Version="4.4.0" />
+		<PackageReference Include="CurrieTechnologies.Razor.SweetAlert2" Version="5.5.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.3" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.3" PrivateAssets="all" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Modules\Common\Service\Presentation.Common.Service\Presentation.Common.Service.csproj" />
+		<ProjectReference Include="..\Modules\HumanResources\Service\Presentation.HumanResources.Service\Presentation.HumanResources.Service.csproj" />
+		<ProjectReference Include="..\Modules\Product\Service\Presentation.Product.Service\Presentation.Product.Service.csproj" />
+		<ProjectReference Include="..\Modules\Sales\Service\Presentation.Sales.Service\Presentation.Sales.Service.csproj" />
+	</ItemGroup>
+
+</Project>

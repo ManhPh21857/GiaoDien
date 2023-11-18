@@ -1,0 +1,156 @@
+﻿@using WebClient.Shop.Shared.Alert
+
+@namespace WebClient.Shop.Pages.Product
+
+@page "/product"
+
+<PopUp @ref="PopUp" ></PopUp>
+
+<div class="main" >
+  <div class="container" >
+    <ul class="breadcrumb" >
+      <li>
+        <a href="index.html" >Home</a>
+      </li>
+      <li>
+        <a href="" >Store</a>
+      </li>
+      <li class="active" >Men category</li>
+    </ul>
+    <!-- BEGIN SIDEBAR & CONTENT -->
+    <div class="row margin-bottom-40" >
+      <!-- BEGIN SIDEBAR -->
+      <div class="sidebar col-md-3 col-sm-5" >
+        <Sidebar></Sidebar>
+        <BestSeller></BestSeller>
+      </div>
+      <!-- END SIDEBAR -->
+      <!-- BEGIN CONTENT -->
+      <div class="col-md-9 col-sm-7" >
+        <!-- BEGIN PRODUCT LIST -->
+        <div class="row product-list" >
+          @foreach (var item in products)
+          {
+            <!-- PRODUCT ITEM START -->
+            <div class="col-md-4 col-sm-6 col-xs-12" >
+              <div class="product-item" @onclick="() => GotoProductDetail(item.Id)" style="cursor: pointer" >
+                <div class="pi-img-wrapper" >
+                  <img alt="@item.Name" class="img-responsive" src="@item.Image" >
+                </div>
+                <h3>
+                  <a href="" >@item.Name</a>
+                </h3>
+                <div class="pi-price" >
+                  @string.Join(" ~ ", new List<string> { $"{item.MinPrice}", $"{item.MaxPrice}" }.Distinct())
+                  <span>vnđ</span>
+                </div>
+                @if (item.Quantity == 0)
+                {
+                  <a class="btn btn-danger add2cart text-white-50" >Hết hàng</a>
+                }
+              </div>
+            </div>
+            <!-- PRODUCT ITEM END -->
+          }
+        </div>
+        <!-- END PRODUCT LIST -->
+        <!-- BEGIN PAGINATOR -->
+        <div class="row" style="-webkit-user-select: none; user-select: none;">
+          <div class="col-md-4 col-sm-4 items-info" ></div>
+          <div class="col-md-8 col-sm-8" >
+            <ul class="pagination pull-right" >
+              @if (page != 1)
+              {
+                if (page > 2)
+                {
+                  <li style="cursor:pointer">
+                    <a @onclick="() => GotoPage(1)" >&larr;</a>
+                  </li>
+                }
+                else
+                {
+                  <li>
+                    <a style="visibility:hidden" >&larr;</a>
+                  </li>
+                }
+                <li style="cursor:pointer">
+                  <a @onclick="() => GotoPage(page - 1)" >&lt;</a>
+                </li>
+              }
+              else
+              {
+                <li>
+                  <a style="visibility:hidden" >&larr;</a>
+                </li>
+                <li>
+                  <a style="visibility:hidden" >&lt;</a>
+                </li>
+              }
+              @if (page - 1 > 0)
+              {
+                if (page == totalPage && totalPage > 2)
+                {
+                  <li style="cursor:pointer">
+                    <a @onclick="() => GotoPage(page - 2)" >@(page - 2)</a>
+                  </li>
+                }
+                <li style="cursor:pointer">
+                  <a @onclick="() => GotoPage(page - 1)" >@(page - 1)</a>
+                </li>
+              }
+              <li>
+                <span>@(page)</span>
+              </li>
+              @if (page + 1 <= totalPage)
+              {
+                <li style="cursor:pointer">
+                  <a @onclick="() => GotoPage(page + 1)" >@(page + 1)</a>
+                </li>
+                if (page == 1 && totalPage > 2)
+                {
+                  <li style="cursor:pointer">
+                    <a @onclick="() => GotoPage(page + 2)">@(page + 2)</a>
+                  </li>
+                }
+                else
+                {
+                  <a style="visibility:hidden" >3</a>
+                }
+              }
+              @if (page != totalPage)
+              {
+                <li style="cursor:pointer">
+                  <a @onclick="() => GotoPage(page + 1)" >&gt;</a>
+                </li>
+                if (totalPage - page > 1)
+                {
+                  <li style="cursor:pointer">
+                    <a @onclick="() => GotoPage(totalPage)" >&rarr;</a>
+                  </li>
+                }
+                else
+                {
+                  <li style="visibility:hidden" >
+                    <a>&rarr;</a>
+                  </li>
+                }
+              }
+              else
+              {
+                <li style="visibility:hidden" >
+                  <a>&gt;</a>
+                </li>
+                <li style="visibility:hidden" >
+                  <a>&rarr;</a>
+                </li>
+              }
+            </ul>
+          </div>
+        </div>
+        <!-- END PAGINATOR -->
+      </div>
+      <!-- END CONTENT -->
+    </div>
+    <!-- END SIDEBAR & CONTENT -->
+  </div>
+</div>

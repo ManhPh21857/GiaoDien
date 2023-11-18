@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\..\Core\Domain\Presentation.Core.Domain\Presentation.Core.Domain.csproj" />
+		<ProjectReference Include="..\..\..\..\Core\Service\Presentation.Core.Service\Presentation.Core.Service.csproj" />
+		<ProjectReference Include="..\..\Domain\Presentation.Sales.Domain\Presentation.Sales.Domain.csproj" />
+	</ItemGroup>
+
+</Project>

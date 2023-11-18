@@ -1,0 +1,177 @@
+﻿@using WebClient.Admin.Pages.Products.Modal
+
+@namespace WebClient.Admin.Pages.Products
+
+@page "/product/{mode}"
+
+<PageTitle>@pageModel.Title</PageTitle>
+
+<PopUp @ref="PopUp" />
+
+<CreateColorModal Error="Error" GetColor="GetColors" Success="Success" />
+<CreateSizeModal Error="Error" GetSize="GetSizes" Success="Success" />
+<CreateSupplierModal Error="Error" GetSupplier="GetSuppliers" Success="Success" />
+<CreateOriginModal Error="Error" GetOrigin="GetOrigins" Success="Success" />
+<CreateMaterialModal Error="Error" GetMaterial="GetMaterials" Success="Success" />
+<CreateTrademarkModal Error="Error" GetTrademark="GetTrademarks" Success="Success" />
+<CreateClassificationModal Error="Error" GetClassification="GetClassifications" Success="Success" />
+
+<div class="app-title">
+  <ul class="app-breadcrumb breadcrumb">
+    <li class="breadcrumb-item">Quản lý sản phẩm</li>
+    <li class="breadcrumb-item">
+      <a href="#">@pageModel.Title</a>
+    </li>
+  </ul>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="tile">
+      <h3 class="tile-title">@pageModel.Title</h3>
+      <div class="tile-body">
+        <form class="row">
+          <div class="form-group col-md-3">
+            <label class="control-label">Mã sản phẩm </label>
+            <input @bind="productModel.Product.Code" class="form-control" placeholder="" type="text">
+          </div>
+          <div class="form-group col-md-3">
+            <label class="control-label">Tên sản phẩm</label>
+            <input @bind="productModel.Product.Name" class="form-control" type="text">
+          </div>
+          <div class="form-group  col-md-3">
+            <label class="control-label">Phân loại</label>
+            <a data-target="#createClassificationModal" data-toggle="modal">thêm</a>
+            <select @bind="productModel.Product.ClassificationId" class="form-control">
+              <option disabled hidden selected value="">-- chọn phân loại --</option>
+              @foreach (var item in classifications)
+              {
+                <option value="@item.Id">@item.Name</option>
+              }
+            </select>
+          </div>
+          <div class="form-group col-md-3 ">
+            <label class="control-label">Chất liệu |</label>
+            <a data-target="#createMaterialModal" data-toggle="modal">thêm</a>
+            <select @bind="productModel.Product.MaterialId" class="form-control">
+              <option disabled hidden selected value="">-- chọn chất liệu --</option>
+              @foreach (var item in materials)
+              {
+                <option value="@item.Id">@item.Name</option>
+              }
+            </select>
+          </div>
+          <div class="form-group col-md-3">
+            <label class="control-label">Nhà cung cấp |</label>
+            <a data-target="#createSupplierModal" data-toggle="modal">thêm</a>
+            <select @bind="productModel.Product.SupplierId" class="form-control">
+              <option disabled hidden selected value="">-- chọn nhà cung cấp --</option>
+              @foreach (var item in suppliers)
+              {
+                <option value="@item.Id">@item.Name</option>
+              }
+            </select>
+          </div>
+          <div class="form-group col-md-3 ">
+            <label class="control-label">Thương hiệu |</label>
+            <a data-target="#createTrademarkModal" data-toggle="modal">thêm</a>
+            <select @bind="productModel.Product.TrademarkId" class="form-control">
+              <option disabled hidden selected value="">-- chọn thương hiệu --</option>
+              @foreach (var item in trademarks)
+              {
+                <option value="@item.Id">@item.Name</option>
+              }
+            </select>
+          </div>
+          <div class="form-group col-md-3">
+            <label class="control-label">Xuất xứ |</label>
+            <a data-target="#createOriginModal" data-toggle="modal">thêm</a>
+            <select @bind="productModel.Product.OriginId" class="form-control">
+              <option disabled hidden selected value="">-- chọn xuất xứ --</option>
+              @foreach (var item in origins)
+              {
+                <option value="@item.Id">@item.Name</option>
+              }
+            </select>
+          </div>
+          <div class="form-group col-md-3">
+            <label class="control-label">somethings</label>
+            <input @bind="productModel.Product.Description" class="form-control" type="text">
+          </div>
+          <div class="form-group col-md-12">
+            <h4>Thông tin bán hàng</h4>
+            <div class="row control">
+              <div class="col-2 d-flex justify-content-center mx-auto">
+                <div class="my-auto" style="font-size : x-large">Phân loại hàng</div>
+              </div>
+              <div class="col-9">
+                <div class="m-2 p-2" style="background-color : #f1f1f1; border-radius : 10px; min-width: 520px">
+                  <div>
+                    <span style="font-size : medium">Màu sắc | </span>
+                    <a data-target="#createColorModal" data-toggle="modal">thêm</a>
+                  </div>
+                  <div class="row m-2">
+                    @foreach (var item in productModel.ProductColors)
+                    {
+                      <div
+                        class="form-check form-check-inline"
+                        style="background-color : @colors.Find(x => x.Id == item.ColorId)?.Color;">
+                        <input
+                          @bind="item.Adoption"
+                          class="form-check-input ml-1"
+                          id="color+@item.ColorId"
+                          @onclick="() => ChangeColorCheckBox(item.ColorId)"
+                          type="checkbox" />
+                        <label
+                          class="form-check-label bg-white text-black"
+                          for="color+@item.ColorId"
+                          style="text-align : center; min-width:50px">
+                          @colors.Find(x => x.Id == item.ColorId)?.Color
+                        </label>
+                      </div>
+                    }
+                  </div>
+                </div>
+                <div class="m-2 p-2" style="background-color : #f1f1f1; border-radius : 10px; min-width: 520px">
+                  <div>
+                    <span style="font-size : medium">Size | </span>
+                    <a data-target="#createSizeModal" data-toggle="modal">thêm</a>
+                  </div>
+                  <div class="row m-2">
+                    @foreach (var item in productModel.ProductSizes)
+                    {
+                      <div class="form-check form-check-inline bg-white">
+                        <input
+                          @bind="item.Adoption"
+                          class="form-check-input ml-1"
+                          id="size+@item.SizeId"
+                          @onclick="() => ChangeSizeCheckBox(item.SizeId)"
+                          type="checkbox" />
+                        <label
+                          class="form-check-label text-black"
+                          for="size+@item.SizeId"
+                          style="text-align : center; min-width:50px">
+                          @sizes.Find(x => x.Id == item.SizeId)?.Size
+                        </label>
+                      </div>
+                    }
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group col-md-12">
+            <div id="classificationTable">
+              <ClassificationTable
+                Colors="colors"
+                ProductColors="productModel.ProductColors.Where(x => x.Adoption)"
+                ProductItems="productModel.ProductDetails"
+                Sizes="sizes" />
+            </div>
+          </div>
+        </form>
+      </div>
+      <button class="btn btn-save" @onclick="Update" type="button">@pageModel.Button</button>
+      <a class="btn btn-cancel" @onclick="Cancel">Hủy bỏ</a>
+    </div>
+  </div>
+</div>

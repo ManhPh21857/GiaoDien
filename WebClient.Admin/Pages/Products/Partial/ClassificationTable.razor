@@ -1,0 +1,42 @@
+﻿@namespace WebClient.Admin.Pages.Products.Partial
+
+@if (ProductColors.Any())
+{
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">Màu sắc</th>
+        <th scope="col">Size</th>
+        <th scope="col">Giá nhập</th>
+        <th scope="col">Giá bán</th>
+        <th scope="col">Số lượng</th>
+      </tr>
+    </thead>
+    <tbody>
+      @foreach (var color in this.ProductColors)
+      {
+        <tr>
+          <td rowspan=@(this.ProductItems.DistinctBy(c => c.SizeId).Count() + 1)>
+            <div>@Colors.FirstOrDefault(x => x.Id == color.ColorId)?.Color</div>
+            <input type="file" />
+          </td>
+        </tr>
+        foreach (var item in this.ProductItems.Where(x => x.ColorId == color.ColorId).OrderBy(x => x.SizeId))
+        {
+          <tr>
+            <td>@Sizes.FirstOrDefault(x => x.Id == item.SizeId)?.Size</td>
+            <td>
+              <input @bind="@item.ImportPrice" class="form-control border-0 bg-white" />
+            </td>
+            <td>
+              <input @bind="@item.Price" class="form-control border-0 bg-white" />
+            </td>
+            <td>
+              <input @bind="@item.Quantity" class="form-control border-0 bg-white" />
+            </td>
+          </tr>
+        }
+      }
+    </tbody>
+  </table>
+}

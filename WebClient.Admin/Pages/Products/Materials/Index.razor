@@ -1,0 +1,73 @@
+﻿@using WebClient.Admin.Shared.Alert
+
+@namespace WebClient.Admin.Pages.Products.Materials
+@page "/product/material"
+@inherits IndexBase
+
+<PageTitle>Chất liệu</PageTitle>
+
+<style>
+    th{
+        border: none;
+    }
+    td{
+        border-top: 1px solid #dee2e6;
+        border-bottom: none;
+        border-left: 1px solid #dee2e6;
+        border-right: none;
+    }
+</style>
+
+<div class="app-title">
+    <ul class="app-breadcrumb breadcrumb">
+        <li class="breadcrumb-item"><a href="product">Quản lý sản phẩm</a></li>
+        <li class="breadcrumb-item">Thuộc tính sản phẩm</li>
+        <li class="breadcrumb-item">Chất liệu</li>
+    </ul>
+</div>
+
+<div class="">
+    <div class="">
+        <div class="tile">
+            <div class="tile-title d-flex justify-content-between">
+                <span class="font-weight-bold" style="font-size: 30px">Chất liệu</span>
+                <span><a class="text-right btn btn-add" @onclick="AddMaterial">Thêm</a></span>
+            </div>
+            <div class="tile-body" style="height:600px; overflow:auto;">
+                <table class="table">
+                    <thead class="position-sticky sticky-top text-light font-weight-bold" style="background-color: rgb(0, 28, 64)">
+                        <tr>
+                            <th scope="col" class="text-center">STT</th>
+                            <th scope="col" class="w-25">Chất liệu</th>
+                            <th scope="col" class="w-25">Trạng thái</th>
+                            <th scope="col" class="text-center">#</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Materials)
+                        {
+                            <tr>
+                                <th scope="row" class="text-center align-middle">@(Materials.IndexOf(item) + 1)</th>
+                                <td class=""><input @bind="@item.Name" class="form-control  bg-white border-0"  disabled="@(item.IsDeleted == 1)" /></td>
+
+                                @if (item.IsDeleted == 1)
+                                {
+                                    <td class="align-middle"><span class="text-secondary">Đã xóa</span></td>
+                                    <td class="text-center "><a class="btn btn-warning" @onclick="@(() => ReactiveMaterial(item.Id))">Reactive</a></td>
+                                }
+                                else
+                                {
+                                    <td class="align-middle "><span class="text-info">Tồn tại</span></td>
+                                    <td class="text-center "><a class="btn btn-danger" @onclick="@(() => DeleteMaterial(item.Id))">Delete</a></td>
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <button class="btn btn-add mt-4" @onclick="UpdateMaterial">Update</button>
+        </div>
+    </div>
+</div>
+
+<PopUp @ref="PopUp"></PopUp>

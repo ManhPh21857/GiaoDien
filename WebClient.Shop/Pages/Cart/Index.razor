@@ -1,0 +1,102 @@
+﻿@using WebClient.Shop.Shared.Shop
+
+@namespace WebClient.Shop.Pages.Cart
+@page "/cart"
+
+<div class="main">
+  <div class="container">
+    <!-- BEGIN SIDEBAR & CONTENT -->
+    <div class="row margin-bottom-40">
+      <!-- BEGIN CONTENT -->
+      <div class="col-md-12 col-sm-12">
+        <h1>Shopping cart</h1>
+        <div class="goods-page">
+            
+          <div class="goods-data clearfix">
+            <div class="table-wrapper-responsive">
+              <table summary="Shopping cart">
+                <tbody>
+                    
+                  <tr>
+                    <th width="10"><input type="checkbox" @onclick="CheckAll" @bind="checkAll"></th>
+                    <th class="goods-page-image">Image</th>
+                    <th class="goods-page-description">Description</th>
+                    <th class="goods-page-ref-no">Ref No</th>
+                    <th class="goods-page-quantity">Quantity</th>
+                    <th class="goods-page-price">Unit price</th>
+                    <th class="goods-page-total" >Total</th>
+                    <th><button class="btn btn-danger" type="submit" @onclick="DeleteProduct">XoaAlL </button></th>
+                  </tr>
+                  
+                   @foreach (var item in Cartdetails)
+                  {
+                      <tr>
+                        <td width="10"><input type="checkbox" @bind="item.Adoption" @onclick="()=>SelectProduct(item.ProductDetailId)"></td>
+                        <td class="goods-page-image">
+                          <a href="javascript:;"><img src="@item.Image" alt="@item.ProductName"></a>
+                        </td>
+                        <td class="goods-page-description">
+                          <h3><a href="javascript:;">@item.ProductName</a></h3>
+                          <p><strong>Item 1</strong> - Color: @item.Color; Size: @item.Size</p>
+                          <em>xem chi tiet</em>
+                        </td>
+
+                        <td class="goods-page-ref-no">
+                          javc2133
+                        </td>
+
+                        <td class="goods-page-quantity">
+                          <div class="product-quantity">
+                              <input id="product-quantity" type="text" value="@item.Quantity" readonly class="form-control input-sm">
+                          </div>
+                        </td>
+                        <td class="goods-page-price">
+                          <strong><span></span>@item.Price vnđ</strong>
+                        </td>
+                        <td class="goods-page-total">
+                          <strong><span></span>@(item.Price * @item.Quantity) vnđ</strong>
+                        </td>
+                        <td class="del-goods-col">
+                          <a class="del-goods" @onclick="@(() => DeleteCartdetail(item.CartId, item.ProductDetailId))">&nbsp;</a>
+                        </td>
+                        <td>
+
+                          <button class="btn btn-primary"
+                                  data-target="#updateCartdetailModal"
+                                  data-toggle="modal"
+                                  @onclick="() => SelectItem(item)"
+                                  type="button">
+                            Chi Tiết
+                          </button>
+                            
+                        </td>
+                      </tr> 
+                  }
+                </tbody>
+              </table>
+            </div>
+            <div class="shopping-total">
+              <ul>
+                <li class="shopping-total-price">
+                  <em>Total</em>
+                  <strong class="price"><span></span>@countTotal vnđ</strong>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <button class="btn btn-default" @onclick="ContinueShopping" type="submit">Continue shopping <i class="fa fa-shopping-cart"></i></button>
+          <button class="btn btn-primary" type="submit">Checkout <i class="fa fa-check"></i></button>    
+         
+           <UpdateCartdetailModal @ref="UpdateCartdetailModal" />
+        
+         
+      </div>
+      </div>
+      <!-- END CONTENT -->
+    </div>
+    <!-- END SIDEBAR & CONTENT -->
+    <!-- BEGIN SIMILAR PRODUCTS -->
+    <MostPopularProduct></MostPopularProduct>
+    <!-- END SIMILAR PRODUCTS -->
+  </div>
+</div>

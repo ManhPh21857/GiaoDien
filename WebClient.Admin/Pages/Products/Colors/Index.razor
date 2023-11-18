@@ -1,0 +1,95 @@
+﻿@namespace WebClient.Admin.Pages.Products.Colors
+@page "/product/color"
+
+<PageTitle>Màu sắc</PageTitle>
+
+<PopUp @ref="PopUp" />
+
+<style>
+    th {
+        border: none;
+    }
+
+    td {
+        border-top: 1px solid #dee2e6;
+        border-bottom: none;
+        border-left: 1px solid #dee2e6;
+        border-right: none;
+    }
+</style>
+
+<div class="app-title">
+  <ul class="app-breadcrumb breadcrumb">
+    <li class="breadcrumb-item">
+      <a href="product">Quản lý sản phẩm</a>
+    </li>
+    <li class="breadcrumb-item">Thuộc tính sản phẩm</li>
+    <li class="breadcrumb-item">Màu sắc</li>
+  </ul>
+</div>
+
+<div class="">
+  <div class="">
+    <div class="tile">
+      <div class="tile-title d-flex justify-content-between">
+        <span class="font-weight-bold" style="font-size: 30px">Màu sắc</span>
+        <span>
+          <a class="text-right btn btn-add" @onclick="AddColor">Thêm</a>
+        </span>
+      </div>
+      <div class="tile-body" style="height:600px; overflow:auto;">
+        <table class="table">
+          <thead
+            class="position-sticky sticky-top text-light font-weight-bold"
+            style="background-color: rgb(0, 28, 64)">
+            <tr>
+              <th class="text-right" scope="col">#</th>
+              <th class="w-25" scope="col">Xem trước</th>
+              <th class="w-25" scope="col">Color</th>
+              <th class="w-25" scope="col">Trạng thái</th>
+              <th class="text-center" scope="col">#</th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach (var item in colors)
+            {
+              <tr>
+                <th class="text-right align-middle" scope="row">@(colors.IndexOf(item) + 1)</th>
+                <td class="">
+                  <div class="rounded" style="background-color:@item.Color; height:40px"></div>
+                </td>
+                <td class="">
+                  <input
+                    @bind="@item.Color"
+                    class="form-control bg-white"
+                    disabled="@(item.IsDeleted == 1)"
+                    id="@(colors.IndexOf(item) + 1)"
+                    @onfocusout="() => Validator(item)" />
+                </td>
+                @if (item.IsDeleted == 1)
+                {
+                  <td class="align-middle">
+                    <span class="text-secondary">Đã xóa</span>
+                  </td>
+                  <td class="text-center ">
+                    <a class="btn btn-warning" @onclick="@(() => ReactiveColor(item.Id))">Reactive</a>
+                  </td>
+                }
+                else
+                {
+                  <td class="align-middle ">
+                    <span class="text-info">Tồn tại</span>
+                  </td>
+                  <td class="text-center ">
+                    <a class="btn btn-danger" @onclick="@(() => DeleteColor(item.Id))">Delete</a>
+                  </td>
+                }
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      <button class="btn btn-add mt-4" @onclick="UpdateColor">Update</button>
+    </div>
+  </div>
+</div>

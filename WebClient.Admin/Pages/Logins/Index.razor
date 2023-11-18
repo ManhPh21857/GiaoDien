@@ -1,0 +1,68 @@
+﻿@layout LoginLayout
+@page "/login"
+
+<PopUp @ref="PopUp"></PopUp>
+
+<div class="limiter">
+  <div class="container-login100">
+    <div class="wrap-login100">
+      <div class="login100-pic js-tilt" data-tilt>
+        <img alt="IMG" src="images/team.jpg">
+      </div>
+      <!--=====TIÊU ĐỀ======-->
+      <form class="login100-form validate-form">
+        <span class="login100-form-title">
+          <b>ĐĂNG NHẬP HỆ THỐNG POS</b>
+        </span>
+        <!--=====FORM INPUT TÀI KHOẢN VÀ PASSWORD======-->
+        <form action="">
+          <div class="wrap-input100 validate-input">
+            <input
+              @bind="loginRequestModel.UserName"
+              class="input100 form-control @usernameValidator"
+              id="username"
+              @onfocusout="() => ValidatorUsername()"
+              placeholder="Tài khoản quản trị"
+              type="text" />
+            <span class="focus-input100"></span>
+            <span class="symbol-input100">
+              <i class="bx bx-user"></i>
+            </span>
+          </div>
+          <div class="wrap-input100 validate-input">
+            <input
+              autocomplete="off"
+              @bind="loginRequestModel.Password"
+              class="input100 form-control @passwordValidator"
+              id="password-field"
+              @onfocusout="() => ValidatorPassword()"
+              placeholder="Mật khẩu"
+              type="password">
+            <span class="bx fa-fw bx-hide field-icon click-eye" toggle="#password-field"></span>
+            <span class="focus-input100"></span>
+            <span class="symbol-input100">
+              <i class="bx bx-key"></i>
+            </span>
+          </div>
+
+          <!--=====ĐĂNG NHẬP======-->
+          <div class="container-login100-form-btn">
+            <input @onclick="Login" type="button" value="Đăng nhập" />
+          </div>
+          <!--=====LINK TÌM MẬT KHẨU======-->
+          <div class="text-right p-t-12">
+            <a class="txt2" href="forgot">
+              Bạn quên mật khẩu?
+            </a>
+          </div>
+        </form>
+        <!--=====FOOTER======-->
+        <div class="text-center p-t-70 txt2">
+          Phần mềm quản lý bán hàng
+          <i aria-hidden="true" class="far fa-copyright"></i>
+          <a class="txt2" href="https://www.facebook.com/truongvo.vd1503/"> Code bởi SD69 </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
